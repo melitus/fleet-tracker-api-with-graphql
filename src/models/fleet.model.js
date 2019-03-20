@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const httpStatus = require('http-status');
-const { omitBy, isNil } = require('lodash');
-const uuidv4 = require('uuid/v4');
+import mongoose from 'mongoose';
+import uuidv4 from 'uuid/v4';
 
 // Fleet Categories
 const categories = ["car", "truck"];
@@ -48,4 +46,6 @@ const fleetSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-module.exports = mongoose.model('Fleet', fleetSchema);
+const fleetModel = mongoose.model('Fleet', fleetSchema);
+
+export default fleetModel;
