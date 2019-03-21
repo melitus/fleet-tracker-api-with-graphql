@@ -1,14 +1,14 @@
-import Fleet from "../../../models/fleet.model";
+import Fleet from '../../../models/mongoseModel/fleet.model'
 
 export default {
   Query: {
     fleet: async (parent, { _id }, context, info) => {
-      return await Fleet.find({ _id });
+      return Fleet.find({ _id })
     },
     fleets: async (parent, args, context, info) => {
       const res = await Fleet.find({})
         .populate()
-        .exec();
+        .exec()
 
       return res.map(u => ({
         _id: u._id.toString(),
@@ -18,9 +18,8 @@ export default {
         longitude: u.longitude,
         latitude: u.latitude,
         mobile: u.longitude,
-        category: u.latitude,
-
-      }));
+        category: u.latitude
+      }))
     }
   },
   Mutation: {
@@ -33,38 +32,36 @@ export default {
         latitude: fleet.latitude,
         mobile: fleet.longitude,
         category: fleet.latitude
-      });
+      })
 
       return new Promise((resolve, reject) => {
         newFleet.save((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+          err ? reject(err) : resolve(res)
+        })
+      })
     },
     updateFleet: async (parent, { _id, fleet }, context, info) => {
       return new Promise((resolve, reject) => {
-        Fleet.findByIdAndUpdate(
-          _id,
-          { $set: { ...fleet } },
-          { new: true }
-        ).exec((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+        Fleet.findByIdAndUpdate(_id, { $set: { fleet } }, { new: true }).exec(
+          (err, res) => {
+            err ? reject(err) : resolve(res)
+          }
+        )
+      })
     },
     deleteFleet: async (parent, { _id }, context, info) => {
       return new Promise((resolve, reject) => {
         Fleet.findByIdAndDelete(_id).exec((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+          err ? reject(err) : resolve(res)
+        })
+      })
     }
   },
   Subscription: {
     fleet: {
       subscribe: (parent, args, { pubsub }) => {
-        //return pubsub.asyncIterator(channel)
+        // return pubsub.asyncIterator(channel)
       }
     }
-  },
-};
+  }
+}
