@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/melitus/fleet-tracker-api-with-graphql#readme",
   "dependencies": {
+    "apollo-server": "^2.4.8",
     "apollo-server-express": "^2.4.8",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",

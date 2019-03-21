@@ -2,10 +2,10 @@ import Fleet from '../../../models/mongoseModel/fleet.model'
 
 export default {
   Query: {
-    fleet: async (parent, { _id }, context, info) => {
+    getFleetbyId: (parent, { _id }, context, info) => {
       return Fleet.find({ _id })
     },
-    fleets: async (parent, args, context, info) => {
+    getFleets: async (parent, args, context, info) => {
       const res = await Fleet.find({})
         .populate()
         .exec()

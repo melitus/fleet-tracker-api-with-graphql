@@ -1,5 +1,8 @@
-export default `
- type Fleet {
+import { gql } from 'apollo-server-express'
+
+// Construct a schema with gql and using the GraphQL schema language
+const typeDefs = gql`
+  type Fleet {
     _id: String
     fleetname: String
     fleetinfo: String
@@ -7,12 +10,12 @@ export default `
     longitude: Int
     latitude: Int
     mobile: String
-    category: String
+    category: [Category]
   }
-    type Query {
-      fleet(_id: ID!): [Fleet!]! 
-      fleets: [Fleet!]!
-    }
+  type Query {
+    getFleetbyId(_id: ID!): [Fleet!]!
+    getFleets: [Fleet]
+  }
 
   type Mutation {
     createFleet(fleet: CreateFleetInput): Fleet!
@@ -36,14 +39,13 @@ export default `
     longitude: Int!
     latitude: Int!
     mobile: String!
-    category: String!
+    category: [Category]!
   }
-  
+
   input UpdateFleetInput {
     fleetname: String
     fleetinfo: String
     contactname: String
-
   }
 
   enum MutationType {
@@ -51,4 +53,10 @@ export default `
     DELETED
     UPDATED
   }
-`;
+  enum Category {
+    car
+    truck
+  }
+`
+
+export default typeDefs

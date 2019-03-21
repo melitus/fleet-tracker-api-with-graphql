@@ -1,5 +1,4 @@
 import Sequelize from 'sequelize'
-import uuidv4 from 'uuid/v4'
 
 const db = new Sequelize('fleet', null, null, {
   dialect: 'sqlite',
@@ -12,8 +11,8 @@ const fleetModel = db.define('fleet', {
   contactname: { type: Sequelize.STRING },
   longitude: { type: Sequelize.Number },
   latitude: { type: Sequelize.Number },
-  category: { type: Sequelize.STRING },
-  trackingnumber: { type: Sequelize.STRING, default: uuidv4() }
+  category: { type: Sequelize.ENUM('car', 'truck') },
+  trackingnumber: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4 }
 })
 
 export default fleetModel
