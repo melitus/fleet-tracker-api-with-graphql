@@ -1,9 +1,13 @@
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
+import winston from 'winston'
+
 import schema from '../graphql/'
 import { models } from '../models/'
+import { appKey } from '../config/credentials'
 
-const port = 4000
+// open mongoose connection
+require('../config/mongoose')
 
 const app = express()
 const context = {
@@ -15,6 +19,8 @@ const server = new ApolloServer({
 })
 server.applyMiddleware({ app, path: '/graphql' })
 
-app.listen(port, () => {
-  console.log(' 🚀 Apollo Server on http://localhost:4000/graphql')
+app.listen(appKey.port, () => {
+  winston.info(` 🚀 Apollo Server on http://localhost:${appKey.port}/graphql`)
 })
+
+export default app
